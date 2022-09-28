@@ -32,7 +32,7 @@ SMTPClientSocket.send(mailfromCommand)
 recv1 = clientSocket.recv(1024)
 print recv1
 if recv1[:3] != '250':
-	print '250 reply not recieved from server.'
+	print '250 reply not recieved from server.' 
 
 # Send RCPT TO command and print server response.  
 rcpttoCommand = '<smarted@my.easternct.edu>\r\n'
