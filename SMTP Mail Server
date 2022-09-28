@@ -1,0 +1,76 @@
+Stephon Grace
+CSC 138
+Socket 2
+SMTP Mail Server
+###################################################
+
+from socket import * 
+msg = ”\r\n I love computer networks!” 
+endmsg = ”\r\n.\r\n” 
+# Choose a mail server (e.g. Google mail server) and call it mailserver 
+mailserver = 'localhost'
+mailPort = 7890
+# Create socket called clientSocket and establish a TCP connection with mailserver 
+SMTPClientSocket = socket(AF_INET,SOCK_STREAM)
+SMTPClientSocket.connect((mailserver, mailPort))
+recv = clientSocket.recv(1024) 
+print recv 
+if recv[:3] != '220': 
+	print '220 reply not received from server.' 
+
+# Send HELO command and print server response. 
+heloCommand = 'HELO Alice\r\n' 
+clientSocket.send(heloCommand) 
+recv1 = clientSocket.recv(1024) 
+print recv1 
+if recv1[:3] != '250':     
+	print '250 reply not received from server.' 
+
+# Send MAIL FROM command and print server response. 
+mailfromCommand = '<bob@ross.com>\r\n'
+SMTPClientSocket.send(mailfromCommand)
+recv1 = clientSocket.recv(1024)
+print recv1
+if recv1[:3] != '250':
+	print '250 reply not recieved from server.'
+
+# Send RCPT TO command and print server response.  
+rcpttoCommand = '<smarted@my.easternct.edu>\r\n'
+SMTPClientSocket.send(rcpttoCommand)
+recv1 = clientSocket.recv(1024)
+print recv1
+if recv1[:3] != '250':
+	print '250 reply not received from server.'
+
+# Send DATA command and print server response.  
+dataCommand = 'Data'
+print dataCommand
+SMTPClientSocket.send(dataCommand)
+recv1 = clientSocket.recv(1024)
+print recv1
+if recv1[:3] != '250':
+	print '250 reply not received from server.'
+
+# Send message data. 
+mesage = raw_input('Enter message Here: ")
+
+# Message ends with a single period. 
+mailMessageEnd = "\r\n.\r\n'
+SMTPClientSocket.send(message + mailMessageEnd)
+print recv1
+if recv1[:3] != '250':
+	print '250 reply not received from server.'
+
+# Send QUIT command and get server response. 
+quitCommand = 'Quit\r\n'
+print quitCommand
+SMTPClientSocket.send(quitCommand)
+recv1 = clientSocket.recv(1024)
+print recv1
+if recv1[:3] != '250':
+	print '250 reply not received from server.'
+	
+	pass
+	
+if __name__ == '__main__':
+	main()
